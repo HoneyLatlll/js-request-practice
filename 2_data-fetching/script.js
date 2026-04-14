@@ -177,13 +177,14 @@ async function test5() {
   try {
     // TODO: 전체 사용자 목록을 가져오세요
     // hint: GET /users
-    const response = await fetch(_____);
+    const response = await fetch(`${BASE_URL}/users`);
     const users = await response.json();
 
     log("log5", `✅ 총 사용자 수: ${users.length}명\n`);
 
     // TODO: forEach로 각 사용자의 이름을 로그에 출력하세요
     // hint: users.forEach(user => log("log5", `  ${user.id}: ${user.name}`))
+    users.forEach((user) => log("log5", `  ${user.id}: ${user.name}`));
 
     // 화면에 카드 표시
     const gridEl = document.getElementById("user-grid");
@@ -218,7 +219,7 @@ async function test6a() {
   try {
     // TODO: 쿼리 파라미터를 URL에 직접 붙여서 요청하세요
     // hint: GET /posts?userId=1
-    const response = await fetch(_____);
+    const response = await fetch(`${BASE_URL}/posts?userId=1`);
     const posts = await response.json();
 
     log("log6", `✅ 게시물 수: ${posts.length}개\n`);
@@ -254,7 +255,7 @@ async function test6b() {
   try {
     // TODO: URLSearchParams를 사용하여 쿼리를 만드세요
     // hint: userId=1, _limit=3 두 파라미터를 객체로 전달
-    const params = new URLSearchParams(_____);
+    const params = new URLSearchParams(`${BASE_URL}/posts?userID=1&_limit=3`);
     const url = `${BASE_URL}/posts?${params}`;
 
     log("log6", `📎 완성된 URL: ${url}\n`);
