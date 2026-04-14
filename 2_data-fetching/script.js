@@ -31,12 +31,12 @@ function test1() {
   fetch(`${BASE_URL}/users/1`)
     .then((response) => {
       log("log1", `✅ 응답 받음! (status: ${response.status})`);
-      return _____; // response를 JSON으로 파싱하세요
+      return response.json(); // response 바디의 데이터를 JSON으로 파싱헤사 복원해라
     })
     .then((data) => {
       log("log1", `\n📋 사용자 정보:`);
-      log("log1", `  이름: ${_____}`); // data에서 name 꺼내기
-      log("log1", `  이메일: ${_____}`); // data에서 email 꺼내기
+      log("log1", `  이름: ${data.name}`); // data에서 name 꺼내기
+      log("log1", `  이메일: ${data.email}`); // data에서 email 꺼내기
       log("log1", `  전화: ${data.phone}`);
       log("log1", `  회사: ${data.company.name}`);
     })
@@ -56,10 +56,10 @@ function test2() {
   fetch(`${BASE_URL}/users/1`).then((response) => {
     log("log2", "=== 성공 응답 (ID: 1) ===");
     // TODO: response의 속성을 로그에 출력하세요
-    log("log2", `  status: ${_____}`); // 상태 코드
-    log("log2", `  statusText: ${_____}`); // 상태 텍스트
-    log("log2", `  ok: ${_____}`); // 성공 여부 (true/false)
-    log("log2", `  url: ${_____}`); // 요청한 URL
+    log("log2", `  status: ${response.status}`); // 상태 코드
+    log("log2", `  statusText: ${response.statusText}`); // 상태 텍스트
+    log("log2", `  ok: ${response.ok}`); // 성공 여부 (true/false)
+    log("log2", `  url: ${response.url}`); // 요청한 URL
     log("log2", "");
 
     document.getElementById("section2-success").textContent =
@@ -70,10 +70,10 @@ function test2() {
   fetch(`${BASE_URL}/users/9999`).then((response) => {
     log("log2", "=== 실패 응답 (ID: 9999) ===");
     // TODO: 동일하게 response 속성을 로그에 출력하세요
-    log("log2", `  status: ${_____}`);
-    log("log2", `  statusText: ${_____}`);
-    log("log2", `  ok: ${_____}`);
-    log("log2", `  url: ${_____}`);
+    log("log2", `  status: ${response.status}`);
+    log("log2", `  statusText: ${response.statusText}`);
+    log("log2", `  ok: ${response.ok}`);
+    log("log2", `  url: ${response.url}`);
 
     document.getElementById("section2-fail").textContent =
       `status: ${response.status}\nok: ${response.ok}\nurl: ${response.url}`;
@@ -89,8 +89,8 @@ async function test3() {
 
   // TODO: await를 사용하여 fetch 결과를 받으세요
   // hint: GET /users/2
-  const response = _____; // await fetch(url)
-  const data = _____; // await response.json()
+  const response = await fetch(`${BASE_URL}/users/2`); // await fetch(url)
+  const data = await response.json(); // await response.json()
 
   log("log3", `✅ 데이터 수신 완료!`);
   log("log3", `\n📋 사용자 정보:`);
@@ -124,7 +124,7 @@ async function test4a() {
     const response = await fetch(`${BASE_URL}/users/1`);
 
     // TODO: response.ok가 false이면 에러를 throw 하세요
-    if (_____) {
+    if (!response.ok) {
       throw new Error(`HTTP 에러! 상태: ${response.status}`);
     }
 
@@ -150,7 +150,7 @@ async function test4b() {
     const response = await fetch(`${BASE_URL}/users/9999`);
 
     // TODO: response.ok가 false이면 에러를 throw 하세요
-    if (_____) {
+    if (!response.ok) {
       throw new Error(`HTTP 에러! 상태: ${response.status}`);
     }
 

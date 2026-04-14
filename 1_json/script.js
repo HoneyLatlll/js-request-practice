@@ -17,24 +17,24 @@ function test1() {
 
   // TODO: user 객체를 JSON 문자열로 변환하세요
   // hint: JSON.stringify()를 사용합니다
-  const json = ""; // <- 여기에 코드를 작성하세요
+  const json = JSON.stringify(user); // <- 여기에 코드를 작성하세요
 
   // TODO: 변환된 JSON 문자열의 타입을 콘솔에 출력하세요
   console.log("원본 객체 타입:", typeof user);
   // 예상 출력: "object"
 
   // 아래 주석을 풀고 JSON 문자열의 타입을 확인하세요
-  // console.log("JSON 문자열 타입:", typeof json);
+  console.log("JSON 문자열 타입:", typeof json);
   // 예상 출력: "string"
 
-  // console.log("JSON 문자열:", json);
+  console.log("JSON 문자열:", json);
   // 예상 출력: '{"name":"홍길동","age":30,"email":"hong@example.com","isActive":true,"skills":["JavaScript","Python","React"]}'
 
   // TODO: JSON.stringify()의 세 번째 인자에 2를 넣어 보기 좋게 포맷팅하세요
   // hint: JSON.stringify(객체, null, 들여쓰기칸수)
-  const prettyJson = ""; // <- 여기에 코드를 작성하세요
+  const prettyJson = JSON.stringify(user, null, 2); // <- 여기에 코드를 작성하세요
 
-  // console.log("보기 좋은 JSON:\n", prettyJson);
+  console.log("보기 좋은 JSON:\n", prettyJson);
 
   // 화면에 결과 표시 (TODO를 완성하면 자동으로 화면에 반영됩니다)
   document.getElementById("section1-object").textContent =
@@ -61,20 +61,20 @@ function test2() {
 
   // TODO: jsonString을 자바스크립트 객체로 변환하세요
   // hint: JSON.parse()를 사용합니다
-  const user = {}; // <- 여기에 코드를 작성하세요
+  const user = JSON.parse(jsonString); // <- 여기에 코드를 작성하세요
 
   // TODO: 변환된 객체의 타입을 확인하세요
-  // console.log("파싱된 객체 타입:", typeof user);
+  console.log("파싱된 객체 타입:", typeof user);
   // 예상 출력: "object"
 
   // TODO: 객체의 각 속성에 접근해 출력하세요
-  // console.log("이름:", user.name);
+  console.log("이름:", user.name);
   // 예상 출력: "홍길동"
-  // console.log("나이:", user.age);
+  console.log("나이:", user.age);
   // 예상 출력: 30
-  // console.log("이메일:", user.email);
+  console.log("이메일:", user.email);
   // 예상 출력: "hong@example.com"
-  // console.log("활성 여부:", user.isActive);
+  console.log("활성 여부:", user.isActive);
   // 예상 출력: true
 
   // 화면에 결과 표시
@@ -104,23 +104,23 @@ function test3() {
   ];
 
   // TODO: users 배열을 JSON 문자열로 변환하세요
-  const json = ""; // <- 여기에 코드를 작성하세요
+  const json = JSON.stringify(users); // <- 여기에 코드를 작성하세요
 
-  // console.log("배열 → JSON:", json);
+  console.log("배열 → JSON:", json);
   // 예상 출력: '[{"id":1,"name":"김철수","role":"개발자"},{"id":2,"name":"이영희","role":"디자이너"},{"id":3,"name":"박민수","role":"기획자"}]'
 
   // TODO: 변환된 JSON 문자열을 다시 배열로 파싱하세요
-  const parsed = []; // <- 여기에 코드를 작성하세요
+  const parsed = JSON.parse(json); // <- 여기에 코드를 작성하세요
 
-  // console.log("JSON → 배열:", parsed);
+  console.log("JSON → 배열:", parsed);
   // 예상 출력: 원래 배열과 동일한 구조
 
   // TODO: 파싱된 배열의 첫 번째 요소의 name 속성을 출력하세요
-  // console.log("첫 번째 사용자:", parsed[0].name);
+  console.log("첫 번째 사용자:", parsed[0].name);
   // 예상 출력: "김철수"
 
   // TODO: 파싱된 배열의 길이를 출력하세요
-  // console.log("사용자 수:", parsed.length);
+  console.log("사용자 수:", parsed.length);
   // 예상 출력: 3
 
   // 화면에 사용자 카드 표시 (TODO를 완성하면 카드가 나타납니다)
@@ -180,26 +180,26 @@ function test4() {
 
   // TODO: data 객체를 JSON 문자열로 변환한 후 다시 파싱하세요
   // (서버로 보냈다가 다시 받은 상황을 시뮬레이션)
-  const json = ""; // <- JSON.stringify()로 변환하세요
-  const parsed = {}; // <- JSON.parse()로 파싱하세요
+  const json = JSON.stringify(data); // <- JSON.stringify()로 변환하세요
+  const parsed = JSON.parse(json); // <- JSON.parse()로 파싱하세요
 
   // TODO: 파싱된 객체에서 중첩된 속성에 접근하세요
   // 도시 이름을 출력하세요
-  // console.log("도시:", parsed.user.address.city);
+  console.log("도시:", parsed.user.address.city);
   // 예상 출력: "서울"
 
   // 도로명을 출력하세요
-  // console.log("도로:", parsed.user.address.details.street);
+  console.log("도로:", parsed.user.address.details.street);
   // 예상 출력: "강남대로"
 
   // 첫 번째 주문의 상품명을 출력하세요
-  // console.log("첫 번째 주문:", parsed.orders[0].product);
+  console.log("첫 번째 주문:", parsed.orders[0].product);
   // 예상 출력: "노트북"
 
   // TODO: 전체 주문 금액 합계를 계산하세요
   // hint: reduce를 사용하거나 반복문을 사용하세요
-  const totalPrice = 0; // <- 여기에 코드를 작성하세요
-  // console.log("총 주문 금액:", totalPrice.toLocaleString() + "원");
+  const totalPrice = parsed.orders.reduce((acc, order) => acc + order.price, 0); // <- 여기에 코드를 작성하세요
+  console.log("총 주문 금액:", totalPrice.toLocaleString() + "원");
   // 예상 출력: "1,319,000원"
 
   // 화면에 결과 표시 (TODO를 완성하면 자동 반영됩니다)
@@ -243,12 +243,12 @@ function test5() {
   const dataWithDate = { createdAt: new Date() };
 
   // TODO: dataWithDate를 JSON.stringify() 후 JSON.parse()로 변환하세요
-  const parsedDate = {}; // <- 여기에 코드를 작성하세요
+  const parsedDate = JSON.stringify(dataWithDate); // <- 여기에 코드를 작성하세요
 
   // TODO: 원본과 변환 후의 createdAt 타입을 비교하세요
-  // console.log("원본 Date 타입:", typeof dataWithDate.createdAt);
+  console.log("원본 Date 타입:", typeof dataWithDate.createdAt);
   // 예상 출력: "object" (Date 객체)
-  // console.log("변환 후 타입:", typeof parsedDate.createdAt);
+  console.log("변환 후 타입:", typeof parsedDate.createdAt);
   // 예상 출력: "string" ← Date가 문자열이 됨!
 
   // 주의사항 2: 함수
@@ -260,24 +260,24 @@ function test5() {
   };
 
   // TODO: dataWithFunc를 JSON.stringify() 후 JSON.parse()로 변환하세요
-  const parsedFunc = {}; // <- 여기에 코드를 작성하세요
+  const parsedFunc = JSON.parse(JSON.stringify(dataWithFunc)); // <- 여기에 코드를 작성하세요
 
   // TODO: 함수가 변환 후 어떻게 되는지 확인하세요
-  // console.log("원본 greet:", typeof dataWithFunc.greet);
+  console.log("원본 greet:", typeof dataWithFunc.greet);
   // 예상 출력: "function"
-  // console.log("변환 후 greet:", parsedFunc.greet);
+  console.log("변환 후 greet:", parsedFunc.greet);
   // 예상 출력: undefined ← 함수가 사라짐!
 
   // 주의사항 3: undefined
   const dataWithUndef = { name: "홍길동", age: undefined };
 
   // TODO: dataWithUndef를 JSON.stringify() 후 JSON.parse()로 변환하세요
-  const parsedUndef = {}; // <- 여기에 코드를 작성하세요
+  const parsedUndef = JSON.parse(JSON.stringify(dataWithUndef)); // <- 여기에 코드를 작성하세요
 
   // TODO: undefined 속성이 변환 후 어떻게 되는지 확인하세요
-  // console.log("원본 속성들:", Object.keys(dataWithUndef));
+  console.log("원본 속성들:", Object.keys(dataWithUndef));
   // 예상 출력: ["name", "age"]
-  // console.log("변환 후 속성들:", Object.keys(parsedUndef));
+  console.log("변환 후 속성들:", Object.keys(parsedUndef));
   // 예상 출력: ["name"] ← age 속성 자체가 사라짐!
 
   // 화면에 결과 표시
