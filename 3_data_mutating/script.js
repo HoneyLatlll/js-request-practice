@@ -35,11 +35,11 @@ async function test1() {
     // TODO: fetch의 두 번째 인자에 옵션 객체를 완성하세요
     // hint: POST /posts
     const response = await fetch(`${BASE_URL}/posts`, {
-      method: _____, // HTTP 메서드
+      method: "POST", // HTTP 메서드
       headers: {
-        "Content-Type": _____, // JSON 형식임을 알리는 헤더
+        "Content-Type": "application/json", // JSON 형식임을 알리는 헤더
       },
-      body: _____, // newPost를 JSON 문자열로 변환
+      body: JSON.stringify(newPost), // newPost를 JSON 문자열로 변환
     });
 
     const data = await response.json();
@@ -82,15 +82,15 @@ async function test2() {
     // TODO: POST 요청으로 사용자를 생성하세요
     // hint: POST /users
     const response = await fetch(`${BASE_URL}/users`, {
-      method: _____,
+      method: "POST",
       headers: {
-        _____: "application/json", // Content-Type 헤더의 키를 채우세요
+        "Content-Type": "application/json", // Content-Type 헤더의 키를 채우세요
       },
-      body: _____, // userData를 JSON 문자열로 변환
+      body: JSON.stringify(userData), // userData를 JSON 문자열로 변환
     });
 
     // TODO: response.ok를 확인하세요
-    if (_____) {
+    if (!response.ok) {
       throw new Error(`HTTP 에러! 상태: ${response.status}`);
     }
 
@@ -135,11 +135,11 @@ async function test3() {
     // TODO: PUT 요청으로 게시물을 수정하세요
     // hint: PUT /posts/1
     const response = await fetch(`${BASE_URL}/posts/1`, {
-      method: _____,
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: _____, // updatedPost를 JSON 문자열로 변환
+      body: JSON.stringify(updatedPost), // updatedPost를 JSON 문자열로 변환
     });
 
     const data = await response.json();
@@ -193,9 +193,9 @@ async function test4() {
     // TODO: PATCH 요청으로 title만 수정하세요
     // hint: PATCH /posts/1
     const patchResponse = await fetch(`${BASE_URL}/posts/1`, {
-      method: _____,
+      method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: _____, // { title: "PATCH로 수정한 제목" } 을 JSON 문자열로
+      body: JSON.stringify({ title: "PATCH로 수정한 제목" }), // { title: "PATCH로 수정한 제목" } 을 JSON 문자열로
     });
     const patchData = await patchResponse.json();
 
@@ -228,11 +228,11 @@ async function test5() {
     // hint: DELETE /posts/1
     // (DELETE는 body가 필요 없습니다!)
     const response = await fetch(`${BASE_URL}/posts/1`, {
-      method: _____,
+      method: "DELETE",
     });
 
     // TODO: response.ok로 삭제 성공 여부를 확인하세요
-    if (_____) {
+    if (response.ok) {
       log("log5", `✅ 게시물 삭제 성공!`);
       log("log5", `  상태 코드: ${response.status}`);
 

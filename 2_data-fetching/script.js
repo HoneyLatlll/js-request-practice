@@ -255,7 +255,9 @@ async function test6b() {
   try {
     // TODO: URLSearchParams를 사용하여 쿼리를 만드세요
     // hint: userId=1, _limit=3 두 파라미터를 객체로 전달
-    const params = new URLSearchParams(`${BASE_URL}/posts?userID=1&_limit=3`);
+    // const params = new URLSearchParams(`${BASE_URL}/posts?userID=1&_limit=3`);
+    // const url = `${BASE_URL}/posts?${params}`;
+    const params = new URLSearchParams({ userId: 1, _limit: 3 });
     const url = `${BASE_URL}/posts?${params}`;
 
     log("log6", `📎 완성된 URL: ${url}\n`);
@@ -299,7 +301,7 @@ async function test7() {
   try {
     // 1단계: 사용자 1의 게시물 목록 가져오기
     // hint: GET /posts?userId=1
-    const postsResponse = await fetch(_____);
+    const postsResponse = await fetch(`${BASE_URL}/posts?userId=1`);
     if (!postsResponse.ok) {
       throw new Error(`게시물 요청 실패! 상태: ${postsResponse.status}`);
     }
@@ -311,7 +313,9 @@ async function test7() {
     // 2단계: 첫 번째 게시물의 댓글 가져오기
     // TODO: posts[0].id를 활용하여 댓글을 가져오세요
     // hint: GET /comments?postId={게시물ID}
-    const commentsResponse = await fetch(_____);
+    const commentsResponse = await fetch(
+      `${BASE_URL}/comments?poseId=${posts[0].id}`,
+    );
     if (!commentsResponse.ok) {
       throw new Error(`댓글 요청 실패! 상태: ${commentsResponse.status}`);
     }
