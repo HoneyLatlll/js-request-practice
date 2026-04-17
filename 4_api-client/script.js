@@ -46,13 +46,17 @@ async function test1() {
 
     // TODO: 위와 같은 패턴으로 사용자 정보를 가져오세요
     // hint: GET /users/1
-    // log("log1", `👤 사용자: ${user.name}`);
-
+    const response2 = await fetch(`${BASE_URL}/users/1`);
+    if (!response2.ok) throw new Error("에러 발생!");
+    const user = await response2.json();
+    log("log1", `👤 사용자: ${user.name}`);
 
     // TODO: 위와 같은 패턴으로 댓글 목록을 가져오세요
     // hint: GET /comments?_limit=3
-    // log("log1", `💬 댓글: ${comments.length}개 조회`);
-
+    const response3 = await fetch(`${BASE_URL}/comments?_limit=3`);
+    if (!response3.ok) throw new Error("에러 발생!");
+    const comments = await response3.json();
+    log("log1", `💬 댓글: ${comments.length}개 조회`);
 
     log("log1", `\n😩 같은 패턴을 3번이나 반복했습니다...`);
     log("log1", `   fetch → ok 체크 → json 파싱`);
@@ -69,11 +73,11 @@ async function test1() {
 // TODO: get 함수를 완성하세요
 // endpoint를 받아서 fetch → ok 체크 → json 파싱을 한 번에 처리합니다
 async function get(endpoint) {
-  const response = await fetch(_____); // BASE_URL + endpoint 조합
+  const response = await fetch(`${BASE_URL}${endpoint}`); // BASE_URL + endpoint 조합
   if (!response.ok) {
     throw new Error(`HTTP 에러! 상태: ${response.status}`);
   }
-  return _____; // JSON 파싱 결과를 반환
+  return response.json(); // JSON 파싱 결과를 반환
 }
 
 async function test2() {
@@ -82,15 +86,15 @@ async function test2() {
   try {
     // TODO: 섹션 1에서 3줄씩 반복했던 코드를 get() 한 줄로 바꿔보세요
     // hint: GET /posts?_limit=3
-    const posts = _____;
+    const posts = get("/posts?_limit=3");
     log("log2", `📋 게시글: ${posts.length}개 조회`);
 
     // hint: GET /users/1
-    const user = _____;
+    const user = get("/users/1");
     log("log2", `👤 사용자: ${user.name}`);
 
     // hint: GET /comments?_limit=3
-    const comments = _____;
+    const comments = "/comments?_limit=3";
     log("log2", `💬 댓글: ${comments.length}개 조회`);
 
     log("log2", `\n✨ 9줄 → 3줄로 줄었습니다!`);
@@ -113,9 +117,9 @@ const api = {
 
   async post(endpoint, data) {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
-      method: _____,
+      method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: _____, // data를 JSON 문자열로
+      body: JSON.stringify(data), // data를 JSON 문자열로
     });
     if (!response.ok) throw new Error(`POST 실패: ${response.status}`);
     return response.json();
@@ -123,9 +127,9 @@ const api = {
 
   async put(endpoint, data) {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
-      method: _____,
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: _____, // data를 JSON 문자열로
+      body: JSON.stringify(data), // data를 JSON 문자열로
     });
     if (!response.ok) throw new Error(`PUT 실패: ${response.status}`);
     return response.json();
@@ -133,7 +137,7 @@ const api = {
 
   async delete(endpoint) {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
-      method: _____,
+      method: "DELETE",
     });
     if (!response.ok) throw new Error(`DELETE 실패: ${response.status}`);
     return response.ok;
@@ -150,28 +154,37 @@ async function test3() {
     // GET — 사용자 3명 조회
     // hint: GET /users?_limit=3
     setStep("step3-get", "active");
-    const users = _____;
+    const users = await api.get("/users?_limit=3");
     log("log3", `✅ GET: 사용자 ${users.length}명 조회`);
     setStep("step3-get", "done");
 
     // POST — 새 게시물 생성
     // hint: POST /posts, { title: "api.post로 생성", body: "CRUD 객체 테스트", userId: 1 }
     setStep("step3-post", "active");
-    const created = _____;
+    const created = await api.post("/posts", {
+      title: "api.post로 생성",
+      body: "CRUD 객체 테스트",
+      userId: 1,
+    });
     log("log3", `✅ POST: 게시물 생성 (id: ${created.id})`);
     setStep("step3-post", "done");
 
     // PUT — 게시물 전체 수정
     // hint: PUT /posts/1, { id: 1, title: "api.put으로 수정", body: "전체 교체", userId: 1 }
     setStep("step3-put", "active");
-    const updated = _____;
+    const updated = await api.put("/posts/1", {
+      id: 1,
+      title: "api.put으로 수정",
+      body: "전체 교체",
+      userId: 1,
+    });
     log("log3", `✅ PUT: 게시물 수정 (title: ${updated.title})`);
     setStep("step3-put", "done");
 
     // DELETE — 게시물 삭제
     // hint: DELETE /posts/1
     setStep("step3-delete", "active");
-    _____;
+    await api.put("/posts/1");
     log("log3", `✅ DELETE: 게시물 삭제 완료`);
     setStep("step3-delete", "done");
 
@@ -307,11 +320,11 @@ async function test5() {
 // TODO: 상태코드별 메시지를 반환하는 함수를 완성하세요
 function getErrorMessage(status) {
   const messages = {
-    400: _____,  // "잘못된 요청입니다"
-    401: _____,  // "로그인이 필요합니다"
-    403: _____,  // "접근 권한이 없습니다"
-    404: _____,  // "요청한 데이터를 찾을 수 없습니다"
-    500: _____,  // "서버에 문제가 발생했습니다"
+    400: _____, // "잘못된 요청입니다"
+    401: _____, // "로그인이 필요합니다"
+    403: _____, // "접근 권한이 없습니다"
+    404: _____, // "요청한 데이터를 찾을 수 없습니다"
+    500: _____, // "서버에 문제가 발생했습니다"
   };
   return messages[status] || `알 수 없는 에러: ${status}`;
 }
@@ -408,8 +421,7 @@ const finalApi = {
       method: "PUT",
       body: JSON.stringify(data),
     }),
-  delete: (endpoint) =>
-    finalRequest(endpoint, { method: "DELETE" }),
+  delete: (endpoint) => finalRequest(endpoint, { method: "DELETE" }),
 };
 
 async function test7() {
