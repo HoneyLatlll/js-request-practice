@@ -204,7 +204,7 @@ async function request(endpoint, options = {}) {
   const config = {
     ...options,
     headers: {
-      _____: "application/json", // Content-Type 헤더
+      "Content-Type": "application/json", // Content-Type 헤더
       ...options.headers,
     },
   };
@@ -227,16 +227,16 @@ const api2 = {
   post: (endpoint, data) =>
     request(endpoint, {
       method: "POST",
-      body: _____, // data를 JSON 문자열로
+      body: JSON.stringify(data), // data를 JSON 문자열로
     }),
   put: (endpoint, data) =>
     request(endpoint, {
-      method: _____,
+      method: "PUT",
       body: JSON.stringify(data),
     }),
   delete: (endpoint) =>
     request(endpoint, {
-      method: _____,
+      method: "DELETE",
     }),
 };
 
@@ -299,7 +299,7 @@ async function test5() {
     const response = await fetch(`${BASE_URL}/users/9999`);
 
     // TODO: response.ok로 HTTP 에러를 잡으세요
-    if (_____) {
+    if (!response.ok) {
       throw new Error(`HTTP 에러! 상태: ${response.status}`);
     }
 
